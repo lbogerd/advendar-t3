@@ -42,6 +42,7 @@ export const posts = createTable(
 export const calendars = createTable("calendar", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar("name", { length: 256 }),
+  descripton: text("description"),
   createdById: varchar("createdById", { length: 255 })
     .notNull()
     .references(() => users.id),
