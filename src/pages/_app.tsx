@@ -1,14 +1,16 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import { cn } from "~/lib/utils";
 
-const inter = Inter({
+const fontSans = FontSans({
   subsets: ["latin", "latin-ext"],
+  variable: "--font-sans",
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -16,7 +18,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <div className={inter.className}>
+    <div className={cn("font-sans antialiased", fontSans.variable)}>
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>
