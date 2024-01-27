@@ -4,6 +4,6 @@ _[x] dashboard
 __[x] list of calendars
 __[x] button to create new calendar | just a url
 _[ ] calendar creation ui
-__[ ] header data
-__[ ] list of items
+__[x] header data
+__[x] list of items
 __[ ] form to add a single item | once again: keep it shit! 
