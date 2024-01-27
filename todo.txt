@@ -1,0 +1,7 @@
+[ ] allow creating a calendar | make sure to make it barely usable for anything else is overkill
+_[ ] name the calendar
+_[ ] description
+_[ ] add days
+__[ ] optionally change number into something custom
+__[ ] add some title
+__[ ] add content
