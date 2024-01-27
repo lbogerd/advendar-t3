@@ -1,6 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
-import Link from "next/link";
 import { Button } from "~/components/ui/button";
 
 import { api } from "~/utils/api";
@@ -39,7 +38,14 @@ function AuthShowcase() {
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
       <Button
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        onClick={
+          sessionData
+            ? () => void signOut()
+            : () =>
+                void signIn("discord", {
+                  callbackUrl: "http://localhost:3000/dashboard",
+                })
+        }
       >
         {sessionData ? "Sign out" : "Sign in"}
       </Button>
