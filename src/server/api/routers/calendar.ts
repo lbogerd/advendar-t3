@@ -2,12 +2,11 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { calendarItems, calendars } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
+import { createCalendarSchema } from "~/lib/validation";
 
 export const calendarRouter = createTRPCRouter({
   create: protectedProcedure
-    .input(
-      z.object({ name: z.string().min(1), description: z.string().optional() }),
-    )
+    .input(createCalendarSchema)
     .mutation(async ({ ctx, input }) => {
       return await ctx.db
         .insert(calendars)
