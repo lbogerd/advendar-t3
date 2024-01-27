@@ -1,5 +1,5 @@
 [ ] ui for creating a calendar + items | remember: keep it shit!
-_[ ] home page: not logged in | just a center button tbh
+_[x] home page: not logged in | just a center button tbh
 _[ ] home page 
 __[ ] list of calendars
 __[ ] button to create new calendar | just a url
