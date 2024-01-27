@@ -52,6 +52,34 @@ export const calendars = createTable("calendar", {
   updatedAt: timestamp("updatedAt"),
 });
 
+export const calendarsRelations = relations(calendars, ({ many }) => ({
+  items: many(calendarItems),
+}));
+
+export const calendarItems = createTable("calendarItem", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  calendarId: uuid("calendarId")
+    .notNull()
+    .references(() => calendars.id),
+  contentTitle: varchar("contentTitle", { length: 256 }).notNull(),
+  contentDescription: text("contentDescription").notNull(),
+  displayText: varchar("displayText", { length: 256 }).notNull(),
+  createdById: varchar("createdById", { length: 255 })
+    .notNull()
+    .references(() => users.id),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+});
+
+export const calendarItemsRelations = relations(calendarItems, ({ one }) => ({
+  calendar: one(calendars, {
+    fields: [calendarItems.calendarId],
+    references: [calendars.id],
+  }),
+}));
+
 export const users = createTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
