@@ -1,7 +1,9 @@
-[ ] allow creating a calendar | make sure to make it barely usable for anything else is overkill
-_[ ] name the calendar
-_[ ] description
-_[ ] add days
-__[ ] optionally change number into something custom
-__[ ] add some title
-__[ ] add content
+[ ] ui for creating a calendar + items | remember: keep it shit!
+_[ ] home page: not logged in | just a center button tbh
+_[ ] home page 
+__[ ] list of calendars
+__[ ] button to create new calendar | just a url
+_[ ] calendar creation ui
+__[ ] header data
+__[ ] list of items
+__[ ] form to add a single item | once again: keep it shit! 
