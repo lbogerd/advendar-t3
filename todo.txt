@@ -1,9 +1,22 @@
-[ ] ui for creating a calendar + items | remember: keep it shit!
-_[x] home page: not logged in | just a center button tbh
-_[x] dashboard 
-__[x] list of calendars
-__[x] button to create new calendar | just a url
-_[ ] calendar creation ui
-__[x] header data
-__[x] list of items
-__[ ] form to add a single item | once again: keep it shit! 
+[ ] make it bad instead of shit | phase 1
+_[ ] layout
+__[ ] center + min-h-screen etc
+__[ ] padding
+__[ ] container? | find out what tailwindcss container class does and if we want it in a layout
+_[ ] nav
+__[ ] bar
+__[ ] 📆 as logo | links to still-empty home page
+__[ ] dashboard link
+__[ ] user name
+__[ ] log in/log out
+_[ ] dashboard
+__[ ] display calendars as cards
+__[ ] show basic info on cards
+__[ ] find more natural spot for create button/link
+[ ] make it bad instead of shit | phase 2
+_[ ] new page
+__[ ] clean up form
+__[ ] remove redundant description / FormLabel
+_[ ] detail page
+__[ ] basic overview | header data
+__[ ] cards for items

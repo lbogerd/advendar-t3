@@ -1,3 +1,14 @@
+20240128
+[x] ui for creating a calendar + items | remember: keep it shit!
+_[x] home page: not logged in | just a center button tbh
+_[x] dashboard 
+__[x] list of calendars
+__[x] button to create new calendar | just a url
+_[x] calendar creation ui
+__[x] header data
+__[x] list of items
+__[x] form to add a single item | once again: keep it shit! 
+
 20240127
 [x] allow creating a calendar | make sure to make it barely usable for anything else is overkill
 _[x] name the calendar
