@@ -17,18 +17,24 @@ export const calendarRouter = createTRPCRouter({
         })
         .returning();
     }),
+
   get: protectedProcedure
     .input(z.object({ calendarId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return await ctx.db.query.calendars.findFirst({
         where: eq(calendars.id, input.calendarId),
+        with: {
+          items: true,
+        },
       });
     }),
+
   getAll: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.query.calendars.findMany({
       where: eq(calendars.createdById, ctx.session.user.id),
     });
   }),
+
   addItems: protectedProcedure
     .input(
       z.object({

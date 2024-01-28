@@ -23,12 +23,17 @@ const CalendarOverview = () => {
   }
 
   return (
-    <div>
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <h1>Calendar Overview</h1>
       {data && (
         <div>
           <h2>{data.name}</h2>
           <p>{data.descripton}</p>
+          <ol>
+            {data.items.map((item) => (
+              <>{item.displayText}</>
+            ))}
+          </ol>
         </div>
       )}
     </div>
