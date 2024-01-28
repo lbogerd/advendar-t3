@@ -2,7 +2,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { calendarItems, calendars } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
-import { createCalendarSchema } from "~/lib/validation";
+import { addItemsSchema, createCalendarSchema } from "~/lib/validation";
 
 export const calendarRouter = createTRPCRouter({
   create: protectedProcedure
@@ -36,18 +36,7 @@ export const calendarRouter = createTRPCRouter({
   }),
 
   addItems: protectedProcedure
-    .input(
-      z.object({
-        calendarId: z.string().uuid(),
-        items: z.array(
-          z.object({
-            contentTitle: z.string().min(1),
-            contentDescription: z.string().min(1),
-            displayText: z.string().min(1),
-          }),
-        ),
-      }),
-    )
+    .input(addItemsSchema)
     .mutation(async ({ ctx, input }) => {
       return await ctx.db
         .insert(calendarItems)
