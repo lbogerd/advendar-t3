@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
+import { type NextPageWithLayout } from "../_app";
+import { type ReactElement } from "react";
 
-export default function Dashboard() {
+function Dashboard() {
   const calendarsQuery = api.calendar.getAll.useQuery();
 
   return (
@@ -30,3 +32,9 @@ export default function Dashboard() {
     </main>
   );
 }
+
+Dashboard.getLayout = function getLayout(page: ReactElement) {
+  return <div className="min-h-screen bg-yellow-500">{page}</div>;
+};
+
+export default Dashboard as NextPageWithLayout;
