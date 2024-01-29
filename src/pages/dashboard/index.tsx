@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
-import { type ReactElement } from "react";
 
 const DashboardPage = () => {
   const calendarsQuery = api.calendar.getAll.useQuery();
 
   return (
-    <main className=" flex min-h-screen flex-col items-center justify-center">
+    <main className="flex flex-col items-center justify-center">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -30,10 +29,6 @@ const DashboardPage = () => {
       </div>
     </main>
   );
-};
-
-DashboardPage.getLayout = function getLayout(page: ReactElement) {
-  return <div className="min-h-screen bg-yellow-500">{page}</div>;
 };
 
 export default DashboardPage;

@@ -9,6 +9,7 @@ import "~/styles/globals.css";
 import { cn } from "~/lib/utils";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
+import { DefaultLayout } from "~/components/layouts/default";
 
 const fontSans = FontSans({
   subsets: ["latin", "latin-ext"],
@@ -24,11 +25,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const getLayout = (Component as any).getLayout || ((page: any) => page);
 
   return getLayout(
-    <div className={cn("font-sans antialiased", fontSans.variable)}>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </div>,
+    <SessionProvider session={session}>
+      <div className={cn("font-sans antialiased", fontSans.variable)}>
+        <DefaultLayout>
+          <Component {...pageProps} />
+        </DefaultLayout>
+      </div>
+    </SessionProvider>,
   );
 };
 
