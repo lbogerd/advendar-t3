@@ -7,6 +7,9 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import { cn } from "~/lib/utils";
+import { ReactElement, ReactNode } from "react";
+import { NextPage } from "next";
+import { DefaultLayout } from "~/components/layouts/default";
 
 const fontSans = FontSans({
   subsets: ["latin", "latin-ext"],
@@ -17,12 +20,18 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  return (
-    <div className={cn("font-sans antialiased", fontSans.variable)}>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </div>
+  // Using 'any's because the 'correct' way to do this isn't working
+  // https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts#with-typescript
+  const getLayout = (Component as any).getLayout || ((page: any) => page);
+
+  return getLayout(
+    <SessionProvider session={session}>
+      <div className={cn("font-sans antialiased", fontSans.variable)}>
+        <DefaultLayout>
+          <Component {...pageProps} />
+        </DefaultLayout>
+      </div>
+    </SessionProvider>,
   );
 };
 
