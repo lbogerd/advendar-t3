@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import ActiveLink from "../ui/active-link";
 
 export const DefaultLayout = ({
   pageTitle,
@@ -19,10 +20,15 @@ export const DefaultLayout = ({
           </Link>
           {!pageTitle && <span className="hidden sm:block">{pageTitle}</span>}
         </div>
+        <div id="links" className="mt-auto">
+          <ActiveLink href={"/dashboard"} activeClassName="underline">
+            Dashboard
+          </ActiveLink>
+        </div>
         <MiniProfile />
       </header>
 
-      <main>{children}</main>
+      <main className="p-4 md:p-6">{children}</main>
     </div>
   );
 };

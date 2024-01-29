@@ -14,7 +14,7 @@ const DashboardPage = () => {
   return (
     <>
       <div className="mx-auto w-full max-w-lg">
-        <div className="mb-2">
+        <div className="mb-4">
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="italic">{calendarsQuery.data?.length} calendars</p>
         </div>
