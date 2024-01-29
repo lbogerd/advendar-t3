@@ -14,9 +14,15 @@ const DashboardPage = () => {
   return (
     <>
       <div className="mx-auto w-full max-w-lg">
-        <div className="mb-4">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="italic">{calendarsQuery.data?.length} calendars</p>
+        <div className="flex w-full justify-between pb-3">
+          <div className="mb-2">
+            <h1 className="text-2xl font-bold">Dashboard</h1>
+            <p className="italic">{calendarsQuery.data?.length} calendars</p>
+          </div>
+
+          <Link href="/dashboard/new">
+            <Button>New Calendar</Button>
+          </Link>
         </div>
         <ul className="mx-auto flex w-full flex-col gap-2">
           {calendarsQuery.data?.map((calendar) => (
@@ -33,10 +39,6 @@ const DashboardPage = () => {
           ))}
         </ul>
       </div>
-
-      <Button className="sticky bottom-0 right-0">
-        <Link href="/dashboard/new">New Calendar</Link>
-      </Button>
     </>
   );
 };
