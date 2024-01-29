@@ -17,9 +17,7 @@ export const DefaultLayout = ({
           <Link href={"/"}>
             <h1 className="text-2xl font-bold">📆 Advendar</h1>
           </Link>
-          {!pageTitle && (
-            <span className="hidden sm:block">{pageTitle} Asdf</span>
-          )}
+          {!pageTitle && <span className="hidden sm:block">{pageTitle}</span>}
         </div>
         <MiniProfile />
       </header>

@@ -1,33 +1,43 @@
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { api } from "~/utils/api";
 
 const DashboardPage = () => {
   const calendarsQuery = api.calendar.getAll.useQuery();
 
   return (
-    <main className="flex flex-col items-center justify-center">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <div className="flex flex-col items-center gap-2">
+    <>
+      <div className="mx-auto w-full max-w-lg">
+        <div className="mb-2">
           <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-center text-2xl italic">
-            {calendarsQuery.data?.length} calendars
-          </p>
-
-          <ul className="flex flex-col gap-2">
-            {calendarsQuery.data?.map((calendar) => (
-              <li key={calendar.id}>
-                <Link href={`dashboard/${calendar.id}`}>{calendar.name}</Link>
-              </li>
-            ))}
-          </ul>
-
-          <Button>
-            <Link href="/dashboard/new">New Calendar</Link>
-          </Button>
+          <p className="italic">{calendarsQuery.data?.length} calendars</p>
         </div>
+        <ul className="mx-auto flex w-full flex-col gap-2">
+          {calendarsQuery.data?.map((calendar) => (
+            <li key={calendar.id} className="group">
+              <Link href={`dashboard/${calendar.id}`}>
+                <Card className="transition-colors group-hover:border-yellow-300 group-hover:bg-yellow-50">
+                  <CardHeader>
+                    <CardTitle className="text-lg">{calendar.name}</CardTitle>
+                    <CardDescription>{calendar.descripton}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-    </main>
+
+      <Button className="sticky bottom-0 right-0">
+        <Link href="/dashboard/new">New Calendar</Link>
+      </Button>
+    </>
   );
 };
 
