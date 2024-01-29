@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import { Button } from "../ui/button";
 
 export const DefaultLayout = ({
   pageTitle,
@@ -29,16 +30,24 @@ export const DefaultLayout = ({
 };
 
 const MiniProfile = () => {
-  const session = useSession();
+  const { data: sessionData } = useSession();
 
   return (
     <div className="flex items-center justify-center gap-2">
-      <img
-        src={session.data?.user.image ?? undefined}
-        alt="user avatar"
-        className="h-8 w-8"
-      />
-      <span>{session.data?.user.name}</span>
+      {sessionData ? (
+        <>
+          <img
+            src={sessionData.user.image ?? undefined}
+            alt="user avatar"
+            className="h-8 w-8"
+          />
+          <span>{sessionData.user.name}</span>
+        </>
+      ) : (
+        <Link href={"/api/auth/signin"}>
+          <Button variant={"secondary"}>Sign in</Button>
+        </Link>
+      )}
     </div>
   );
 };
