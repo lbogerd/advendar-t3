@@ -1,8 +1,15 @@
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import ActiveLink from "../ui/active-link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 export const DefaultLayout = ({
   pageTitle,
@@ -12,8 +19,8 @@ export const DefaultLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div>
-      <header className="sticky top-0 flex justify-between bg-yellow-400 p-1.5 sm:px-4 sm:py-2">
+    <>
+      <header className="sticky top-0 flex h-12 justify-between bg-yellow-400 px-1.5 sm:px-4 sm:py-2">
         <div className="flex items-center sm:gap-2">
           <Link href={"/"}>
             <h1 className="text-2xl font-bold">📆 Advendar</h1>
@@ -29,7 +36,7 @@ export const DefaultLayout = ({
       </header>
 
       <main className="p-4 md:p-6">{children}</main>
-    </div>
+    </>
   );
 };
 
@@ -46,6 +53,29 @@ const MiniProfile = () => {
             className="h-8 w-8"
           />
           <span>{sessionData.user.name}</span>
+          <div className="static my-auto">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <ChevronDown />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem className="border-collapse border border-transparent focus:border-yellow-200 focus:bg-yellow-50">
+                  <Button
+                    variant={"invisible"}
+                    size={"xs"}
+                    className="w-full justify-normal"
+                    onClick={() =>
+                      signOut({
+                        callbackUrl: "/",
+                      })
+                    }
+                  >
+                    <Link href={"/api/auth/"}>Sign out</Link>
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </>
       ) : (
         <Link href={"/api/auth/signin"}>

@@ -25,7 +25,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return getLayout(
     <SessionProvider session={session}>
-      <div className={inter.className}>
+      <div className={cn("antialiased", inter.className)}>
         <DefaultLayout>
           <Component {...pageProps} />
         </DefaultLayout>
