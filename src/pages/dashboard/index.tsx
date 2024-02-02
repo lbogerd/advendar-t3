@@ -23,11 +23,11 @@ const DashboardPage = () => {
           <Button>New Calendar</Button>
         </Link>
       </div>
-      <ul className="mx-auto flex w-full flex-col gap-2">
+      <ul className="mx-auto flex w-full flex-col gap-2 md:row-auto md:grid md:auto-rows-fr md:grid-cols-2">
         {calendarsQuery.data?.map((calendar) => (
           <li key={calendar.id} className="group">
             <Link href={`dashboard/${calendar.id}`}>
-              <Card className="transition-colors group-hover:border-yellow-300 group-hover:bg-yellow-50">
+              <Card className="h-full transition-colors group-hover:border-yellow-300 group-hover:bg-yellow-50">
                 <CardHeader>
                   <CardTitle className="text-lg">{calendar.name}</CardTitle>
                   <CardDescription>{calendar.descripton}</CardDescription>
