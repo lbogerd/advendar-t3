@@ -21,13 +21,13 @@ export const DefaultLayout = ({
   return (
     <>
       <header className="sticky top-0 flex h-12 justify-between bg-yellow-400 px-1.5 sm:px-4 sm:py-2">
-        <div className="flex items-center sm:gap-2">
+        <div className="flex shrink-0 items-center sm:gap-2">
           <Link href={"/"}>
             <h1 className="text-2xl font-bold">📆 Advendar</h1>
           </Link>
           {!pageTitle && <span className="hidden sm:block">{pageTitle}</span>}
         </div>
-        <div id="links" className="mt-auto">
+        <div id="links" className="mt-auto hidden sm:block">
           <ActiveLink href={"/dashboard"} activeClassName="underline">
             Dashboard
           </ActiveLink>
@@ -35,7 +35,7 @@ export const DefaultLayout = ({
         <MiniProfile />
       </header>
 
-      <main className="p-4 md:p-6">{children}</main>
+      <main className="container py-4 md:py-6">{children}</main>
     </>
   );
 };
@@ -70,7 +70,7 @@ const MiniProfile = () => {
                       })
                     }
                   >
-                    <Link href={"/api/auth/"}>Sign out</Link>
+                    <Link href={"/api/auth/signout"}>Sign out</Link>
                   </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
