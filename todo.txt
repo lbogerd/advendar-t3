@@ -1,7 +1,7 @@
 [ ] make it bad instead of shit | phase 2
-_[ ] new page
-__[ ] clean up form
-__[ ] remove redundant description / FormLabel
+_[x] new page
+__[x] clean up form
+__[x] remove redundant description / FormLabel
 _[ ] detail page
 __[ ] basic overview | header data
 __[ ] cards for items
