@@ -6,7 +6,6 @@ import { api } from "~/utils/api";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,6 +13,8 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useRouter } from "next/router";
+import { Button } from "~/components/ui/button";
+import { TextArea } from "~/components/ui/text-area";
 
 export default function New() {
   const router = useRouter();
@@ -37,50 +38,49 @@ export default function New() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <div className="flex flex-col items-center gap-2">
-          <h1 className="text-2xl font-bold">New Calendar</h1>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Calendar name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Calendar name" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Choose a name for your calendar.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Calendar description</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Calendar description" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Choose a description for your calendar.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <div className="flex flex-col items-center gap-2">
+      <h1 className="text-2xl font-bold">New Calendar</h1>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex w-full max-w-lg flex-col gap-4"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Calendar name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="What is your calendar called?"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Calendar description</FormLabel>
+                <FormControl>
+                  <TextArea
+                    placeholder="What is the calendar for?"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-              <button type="submit">Create calendar</button>
-            </form>
-          </Form>
-        </div>
-      </div>
-    </main>
+          <Button type="submit">Create calendar</Button>
+        </form>
+      </Form>
+    </div>
   );
 }

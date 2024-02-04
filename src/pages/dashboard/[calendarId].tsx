@@ -3,6 +3,13 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -110,15 +117,32 @@ const CalendarOverview = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1>Calendar Overview</h1>
+    <>
+      <h1 className="pb-3 text-2xl font-bold">Calendar Overview</h1>
       {calendarItemsQuery.data && (
-        <div>
-          <h2>{calendarItemsQuery.data.name}</h2>
-          <p>{calendarItemsQuery.data.descripton}</p>
-          <ol>
+        <>
+          <h2 className="text-lg font-medium">
+            {calendarItemsQuery.data.name}
+          </h2>
+          <p className="text-muted-foreground">
+            {calendarItemsQuery.data.descripton}
+          </p>
+          <hr className="my-6" />
+          <ol className="mx-auto flex w-full flex-col gap-2 md:grid md:grid-cols-2">
             {calendarItemsQuery.data.items.map((item) => (
-              <li key={item.id}>{item.displayText}</li>
+              <li key={item.id} className="group">
+                <Card className="flex h-full transition-colors group-hover:border-yellow-300 group-hover:bg-yellow-50">
+                  <CardHeader className="justify-center rounded-l-lg border-r bg-yellow-300 group-hover:border-yellow-300">
+                    <CardTitle>{item.displayText}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex h-full w-full flex-col items-center justify-center py-2">
+                    <CardTitle className="text-lg">
+                      {item.contentTitle}
+                    </CardTitle>
+                    <CardDescription>{item.contentDescription}</CardDescription>
+                  </CardContent>
+                </Card>
+              </li>
             ))}
           </ol>
           <Form {...form}>
@@ -175,9 +199,9 @@ const CalendarOverview = () => {
               <button type="submit">Add item</button>
             </form>
           </Form>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

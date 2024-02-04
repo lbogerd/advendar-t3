@@ -1,7 +1,7 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-import { Inter as FontSans } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import { api } from "~/utils/api";
 
@@ -11,9 +11,8 @@ import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 import { DefaultLayout } from "~/components/layouts/default";
 
-const fontSans = FontSans({
+const inter = Inter({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-sans",
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -26,7 +25,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return getLayout(
     <SessionProvider session={session}>
-      <div className={cn("font-sans antialiased", fontSans.variable)}>
+      <div className={cn("antialiased", inter.className)}>
         <DefaultLayout>
           <Component {...pageProps} />
         </DefaultLayout>

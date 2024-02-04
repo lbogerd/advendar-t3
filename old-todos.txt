@@ -1,3 +1,21 @@
+20240131
+[x] make it bad instead of shit | phase 1
+_[x] layout
+__[x] center + min-h-screen etc
+__[x] padding
+__[x] container? | find out what tailwindcss container class does and if we want it in a layout
+_[x] nav
+__[x] bar
+__[x] 📆 as logo | links to still-empty home page
+__[x] dashboard link
+__[x] user name
+__[x] log in
+__[x] log out in drop down
+_[x] dashboard
+__[x] display calendars as cards
+__[x] show basic info on cards
+__[x] find more natural spot for create button/link
+
 20240128
 [x] ui for creating a calendar + items | remember: keep it shit!
 _[x] home page: not logged in | just a center button tbh
