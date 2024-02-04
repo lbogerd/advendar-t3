@@ -3,6 +3,13 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -116,9 +123,21 @@ const CalendarOverview = () => {
         <div>
           <h2>{calendarItemsQuery.data.name}</h2>
           <p>{calendarItemsQuery.data.descripton}</p>
-          <ol>
+          <ol className="mx-auto flex w-full flex-col gap-2 md:row-auto md:grid md:auto-rows-fr md:grid-cols-2">
             {calendarItemsQuery.data.items.map((item) => (
-              <li key={item.id}>{item.displayText}</li>
+              <li key={item.id} className="group">
+                <Card className="flex h-full transition-colors group-hover:border-yellow-300 group-hover:bg-yellow-50">
+                  <CardHeader className="rounded-l-lg border-r bg-yellow-300 group-hover:border-yellow-300">
+                    <CardTitle>{item.displayText}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex h-full flex-col items-center justify-center py-0">
+                    <CardTitle className="text-lg">
+                      {item.contentTitle}
+                    </CardTitle>
+                    <CardDescription>{item.contentDescription}</CardDescription>
+                  </CardContent>
+                </Card>
+              </li>
             ))}
           </ol>
           <Form {...form}>

@@ -13,7 +13,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <div className="flex w-full justify-between pb-3">
+      <div className="flex justify-between pb-3">
         <div className="mb-2">
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="italic">{calendarsQuery.data?.length} calendars</p>
@@ -23,7 +23,7 @@ const DashboardPage = () => {
           <Button>New Calendar</Button>
         </Link>
       </div>
-      <ul className="mx-auto flex w-full flex-col gap-2 md:row-auto md:grid md:auto-rows-fr md:grid-cols-2">
+      <ul className="mx-auto flex flex-col gap-2 md:row-auto md:grid md:auto-rows-fr md:grid-cols-2">
         {calendarsQuery.data?.map((calendar) => (
           <li key={calendar.id} className="group">
             <Link href={`dashboard/${calendar.id}`}>

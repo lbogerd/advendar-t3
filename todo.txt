@@ -4,4 +4,5 @@ __[x] clean up form
 __[x] remove redundant description / FormLabel
 _[ ] detail page
 __[ ] basic overview | header data
-__[ ] cards for items
+__[x] cards for items
+__[ ] form for new item | match form used on /new
