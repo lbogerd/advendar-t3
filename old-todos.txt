@@ -1,3 +1,13 @@
+20240204
+[x] make it bad instead of shit | phase 2
+_[x] new page
+__[x] clean up form
+__[x] remove redundant description / FormLabel
+_[x] detail page
+__[x] basic overview | header data
+__[x] cards for items
+__[x] form for new item | match form used on /new
+
 20240131
 [x] make it bad instead of shit | phase 1
 _[x] layout

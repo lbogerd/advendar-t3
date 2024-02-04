@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
+import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,6 +20,7 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { TextArea } from "~/components/ui/text-area";
 import { type addItemsSchema, itemSchema } from "~/lib/validation";
 import { api } from "~/utils/api";
 
@@ -127,7 +129,9 @@ const CalendarOverview = () => {
           <p className="text-muted-foreground">
             {calendarItemsQuery.data.descripton}
           </p>
+
           <hr className="my-6" />
+
           <ol className="mx-auto flex w-full flex-col gap-2 md:grid md:grid-cols-2">
             {calendarItemsQuery.data.items.map((item) => (
               <li key={item.id} className="group">
@@ -145,8 +149,15 @@ const CalendarOverview = () => {
               </li>
             ))}
           </ol>
+
+          <hr className="my-6" />
+
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="mx-auto flex w-full max-w-lg flex-col gap-4"
+            >
+              <h3 className="text-lg font-medium">Add new calendar item</h3>
               <FormField
                 control={form.control}
                 name="displayText"
@@ -157,7 +168,7 @@ const CalendarOverview = () => {
                       <Input placeholder="Display text" {...field} />
                     </FormControl>
                     <FormDescription>
-                      Choose a display text for your calendar item.
+                      Text that will be shown on an unopened calendar item.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -170,11 +181,11 @@ const CalendarOverview = () => {
                   <FormItem>
                     <FormLabel>Content title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Content title" {...field} />
+                      <Input
+                        placeholder="Title for the content of the calendar item"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormDescription>
-                      Choose a content title for your calendar item.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -186,17 +197,17 @@ const CalendarOverview = () => {
                   <FormItem>
                     <FormLabel>Content description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Content description" {...field} />
+                      <TextArea
+                        placeholder="Content for the calendar item"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormDescription>
-                      Choose a content description for your calendar item.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <button type="submit">Add item</button>
+              <Button type="submit">Add item</Button>
             </form>
           </Form>
         </>
