@@ -1,6 +1,5 @@
 import {
   type GetStaticPaths,
-  GetStaticProps,
   type GetStaticPropsContext,
   type InferGetStaticPropsType,
 } from "next";
@@ -9,6 +8,9 @@ import { createServerSideHelpers } from "@trpc/react-query/server";
 import { db } from "~/server/db";
 import { appRouter } from "~/server/api/root";
 import superjson from "superjson";
+import { gt } from "drizzle-orm";
+import { subDays } from "date-fns";
+import { calendars } from "~/server/db/schema";
 
 export async function getStaticProps(
   context: GetStaticPropsContext<{ id: string }>,
@@ -44,9 +46,12 @@ export async function getStaticProps(
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const calendars = await db.query.calendars.findMany();
+  const recentCalendars = await db.query.calendars.findMany({
+    where: gt(calendars.updatedAt, subDays(new Date(), 7)),
+  });
+
   return {
-    paths: calendars.map((calendar) => ({
+    paths: recentCalendars.map((calendar) => ({
       params: {
         id: calendar.id,
       },
