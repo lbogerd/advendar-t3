@@ -76,5 +76,5 @@
 }
 
 ::selection {
-  @apply bg-yellow-500/90 text-yellow-900;
+  @apply bg-yellow-200 text-yellow-950;
 }

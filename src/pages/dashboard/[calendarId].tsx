@@ -135,9 +135,11 @@ const CalendarOverview = () => {
           <ol className="mx-auto flex w-full flex-col gap-2 md:grid md:grid-cols-2">
             {calendarItemsQuery.data.items.map((item) => (
               <li key={item.id} className="group">
-                <Card className="flex h-full transition-colors group-hover:border-yellow-300 group-hover:bg-yellow-50">
-                  <CardHeader className="justify-center rounded-l-lg border-r bg-yellow-300 group-hover:border-yellow-300">
-                    <CardTitle>{item.displayText}</CardTitle>
+                <Card className="flex h-full transition-colors">
+                  <CardHeader className="justify-center rounded-l-lg border-r bg-yellow-300">
+                    <CardTitle className="w-10 text-center">
+                      {item.displayText}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="flex h-full w-full flex-col items-center justify-center py-2">
                     <CardTitle className="text-lg">

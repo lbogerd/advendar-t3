@@ -35,7 +35,7 @@ export const DefaultLayout = ({
         <MiniProfile />
       </header>
 
-      <main className="container py-4 md:py-6">{children}</main>
+      <main className="container px-4 py-6 md:px-8">{children}</main>
     </>
   );
 };
@@ -79,7 +79,7 @@ const MiniProfile = () => {
         </>
       ) : (
         <Link href={"/api/auth/signin"}>
-          <Button variant={"secondary"}>Sign in</Button>
+          <Button>Sign in</Button>
         </Link>
       )}
     </div>
