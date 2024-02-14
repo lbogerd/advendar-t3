@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { calendarItems, calendars } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
 import { addItemsSchema, createCalendarSchema } from "~/lib/validation";
@@ -16,6 +16,18 @@ export const calendarRouter = createTRPCRouter({
           createdById: ctx.session.user.id,
         })
         .returning();
+    }),
+
+  // TODO: split this into it's own router
+  getPublic: publicProcedure
+    .input(z.object({ calendarId: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.query.calendars.findFirst({
+        where: eq(calendars.id, input.calendarId),
+        with: {
+          items: true,
+        },
+      });
     }),
 
   get: protectedProcedure
