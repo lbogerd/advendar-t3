@@ -1,5 +1,6 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
+  ignorePatterns: ["**.js", "node_modules", ".next", "out"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: true,
