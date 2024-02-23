@@ -1,3 +1,11 @@
+__[x] add setting to calendar ui
+# 2/23/2024, 3:22:02 PM
+__[x] add setting to calendar api
+# 2/23/2024, 3:22:02 PM
+__[x] add setting to calendar database
+# 2/23/2024, 3:22:02 PM
+_[x] enable / disable sharing in calendar detail view
+# 2/23/2024, 3:22:02 PM
 __[x] form for new item | match form used on /new
 # 2/8/2024, 9:17:41 AM
 __[x] cards for items
