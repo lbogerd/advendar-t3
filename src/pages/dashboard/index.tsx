@@ -32,7 +32,7 @@ const DashboardPage = () => {
               <Card className="h-full transition-colors group-hover:border-yellow-300 group-hover:bg-yellow-50">
                 <CardHeader>
                   <CardTitle className="text-lg">{calendar.name}</CardTitle>
-                  <CardDescription>{calendar.descripton}</CardDescription>
+                  <CardDescription>{calendar.description}</CardDescription>
                 </CardHeader>
               </Card>
             </Link>

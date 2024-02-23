@@ -1,8 +1,12 @@
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import {
+  addItemsSchema,
+  createCalendarSchema,
+  updateCalendarSchema,
+} from "~/lib/validation";
 import { calendarItems, calendars } from "~/server/db/schema";
-import { eq } from "drizzle-orm";
-import { addItemsSchema, createCalendarSchema } from "~/lib/validation";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const calendarRouter = createTRPCRouter({
   create: protectedProcedure
@@ -12,9 +16,24 @@ export const calendarRouter = createTRPCRouter({
         .insert(calendars)
         .values({
           name: input.name,
-          descripton: input.description,
+          description: input.description,
           createdById: ctx.session.user.id,
         })
+        .returning();
+    }),
+
+  update: protectedProcedure
+    .input(updateCalendarSchema)
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db
+        .update(calendars)
+        .set({
+          name: input.name,
+          description: input.description,
+          shareable: input.shareable,
+          updatedAt: new Date(),
+        })
+        .where(eq(calendars.id, input.calendarId))
         .returning();
     }),
 
@@ -23,7 +42,10 @@ export const calendarRouter = createTRPCRouter({
     .input(z.object({ calendarId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return await ctx.db.query.calendars.findFirst({
-        where: eq(calendars.id, input.calendarId),
+        where: and(
+          eq(calendars.id, input.calendarId),
+          eq(calendars.shareable, true),
+        ),
         with: {
           items: true,
         },

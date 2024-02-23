@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
+import CalendarEditForm from "~/components/forms/CalendarEditForm";
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -21,21 +22,80 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { TextArea } from "~/components/ui/text-area";
-import { type addItemsSchema, itemSchema } from "~/lib/validation";
+import { itemSchema, type addItemsSchema } from "~/lib/validation";
 import { api } from "~/utils/api";
 
 const CalendarOverview = () => {
   const { calendarId } = useRouter().query;
-  const utils = api.useUtils();
 
   const calendarItemsQuery = api.calendar.get.useQuery(
     {
       calendarId: calendarId as string,
     },
     {
-      enabled: calendarId !== undefined,
+      enabled: typeof calendarId === "string",
     },
   );
+
+  if (typeof calendarId !== "string") {
+    return <div>Invalid calendar ID</div>;
+  }
+
+  if (calendarItemsQuery.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (calendarItemsQuery.isError) {
+    return <div>Error occurred while fetching calendars.</div>;
+  }
+
+  return (
+    <>
+      <h1 className="pb-3 text-2xl font-bold">Calendar Overview</h1>
+      {calendarItemsQuery.data && (
+        <>
+          <CalendarEditForm
+            calendarId={calendarId}
+            name={calendarItemsQuery.data.name ?? ""}
+            description={calendarItemsQuery.data.description ?? ""}
+            shareable={calendarItemsQuery.data.shareable ?? false}
+          />
+
+          <hr className="my-6" />
+
+          <ol className="mx-auto flex w-full flex-col gap-2 md:grid md:grid-cols-2">
+            {calendarItemsQuery.data.items.map((item) => (
+              <li key={item.id} className="group">
+                <Card className="flex h-full transition-colors">
+                  <CardHeader className="justify-center rounded-l-lg border-r bg-yellow-300">
+                    <CardTitle className="w-10 text-center">
+                      {item.displayText}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex h-full w-full flex-col items-center justify-center py-2">
+                    <CardTitle className="text-lg">
+                      {item.contentTitle}
+                    </CardTitle>
+                    <CardDescription>{item.contentDescription}</CardDescription>
+                  </CardContent>
+                </Card>
+              </li>
+            ))}
+          </ol>
+
+          <hr className="my-6" />
+
+          <CalendarItemForm calendarId={calendarId} />
+        </>
+      )}
+    </>
+  );
+};
+
+export default CalendarOverview;
+
+function CalendarItemForm({ calendarId }: { calendarId: string }) {
+  const utils = api.useUtils();
 
   const addItemsMutation = api.calendar.addItems.useMutation({
     async onMutate(data) {
@@ -81,12 +141,7 @@ const CalendarOverview = () => {
   const form = useForm<z.infer<typeof itemSchema>>({
     resolver: zodResolver(itemSchema),
     defaultValues: {
-      displayText:
-        // display the number of the day by adding 1 to the length of the items array
-        // or 1 if the array is empty
-        // FIXME: this is not working properly, it's always 1
-        // possible fix: use useEffect to update the default value?
-        ((calendarItemsQuery.data?.items?.length ?? 0) + 1).toString(),
+      displayText: "",
       contentTitle: "",
       contentDescription: "",
     },
@@ -94,7 +149,7 @@ const CalendarOverview = () => {
 
   const onSubmit = async (data: z.infer<typeof itemSchema>) => {
     const mutationData: z.infer<typeof addItemsSchema> = {
-      calendarId: calendarId as string,
+      calendarId: calendarId,
       items: [data],
     };
 
@@ -102,7 +157,7 @@ const CalendarOverview = () => {
       onSuccess: () => {
         // refetch the calendar items
         void utils.calendar.get.refetch({
-          calendarId: calendarId as string,
+          calendarId: calendarId,
         });
 
         form.reset();
@@ -110,112 +165,64 @@ const CalendarOverview = () => {
     });
   };
 
-  if (calendarItemsQuery.isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (calendarItemsQuery.isError) {
-    return <div>Error occurred while fetching calendars.</div>;
-  }
-
   return (
-    <>
-      <h1 className="pb-3 text-2xl font-bold">Calendar Overview</h1>
-      {calendarItemsQuery.data && (
-        <>
-          <h2 className="text-lg font-medium">
-            {calendarItemsQuery.data.name}
-          </h2>
-          <p className="text-muted-foreground">
-            {calendarItemsQuery.data.descripton}
-          </p>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mx-auto flex w-full max-w-lg flex-col gap-4"
+      >
+        <h3 className="text-lg font-medium">Add new calendar item</h3>
+        <FormField
+          control={form.control}
+          name="displayText"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Display text</FormLabel>
+              <FormControl>
+                <Input placeholder="Display text" {...field} />
+              </FormControl>
+              <FormDescription>
+                Text that will be shown on an unopened calendar item.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="contentTitle"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Content title</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Title for the content of the calendar item"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="contentDescription"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Content description</FormLabel>
+              <FormControl>
+                <TextArea
+                  placeholder="Content for the calendar item"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <hr className="my-6" />
-
-          <ol className="mx-auto flex w-full flex-col gap-2 md:grid md:grid-cols-2">
-            {calendarItemsQuery.data.items.map((item) => (
-              <li key={item.id} className="group">
-                <Card className="flex h-full transition-colors">
-                  <CardHeader className="justify-center rounded-l-lg border-r bg-yellow-300">
-                    <CardTitle className="w-10 text-center">
-                      {item.displayText}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex h-full w-full flex-col items-center justify-center py-2">
-                    <CardTitle className="text-lg">
-                      {item.contentTitle}
-                    </CardTitle>
-                    <CardDescription>{item.contentDescription}</CardDescription>
-                  </CardContent>
-                </Card>
-              </li>
-            ))}
-          </ol>
-
-          <hr className="my-6" />
-
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mx-auto flex w-full max-w-lg flex-col gap-4"
-            >
-              <h3 className="text-lg font-medium">Add new calendar item</h3>
-              <FormField
-                control={form.control}
-                name="displayText"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Display text</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Display text" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Text that will be shown on an unopened calendar item.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="contentTitle"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Content title</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Title for the content of the calendar item"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="contentDescription"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Content description</FormLabel>
-                    <FormControl>
-                      <TextArea
-                        placeholder="Content for the calendar item"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit">Add item</Button>
-            </form>
-          </Form>
-        </>
-      )}
-    </>
+        <Button type="submit">Add item</Button>
+      </form>
+    </Form>
   );
-};
-
-export default CalendarOverview;
+}

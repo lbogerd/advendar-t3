@@ -17,3 +17,10 @@ export const addItemsSchema = z.object({
   calendarId: z.string().uuid(),
   items: z.array(itemSchema),
 });
+
+export const updateCalendarSchema = z
+  .object({
+    calendarId: z.string().uuid(),
+    shareable: z.boolean(),
+  })
+  .merge(createCalendarSchema);

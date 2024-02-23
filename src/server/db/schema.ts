@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  boolean,
   index,
   integer,
   pgTableCreator,
@@ -42,7 +43,8 @@ export const posts = createTable(
 export const calendars = createTable("calendar", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar("name", { length: 256 }),
-  descripton: text("description"),
+  description: text("description"),
+  shareable: boolean("shareable").default(false),
   createdById: varchar("createdById", { length: 255 })
     .notNull()
     .references(() => users.id),
