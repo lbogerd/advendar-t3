@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { updateCalendarSchema } from "~/lib/validation";
@@ -103,7 +104,14 @@ export default function CalendarEditForm(defaultValues: props) {
                 />
               </FormControl>
               <FormLabel className="pl-2">
-                Make this calendar shareable
+                Make this calendar shareable (
+                <Link
+                  href={`/calendar/${defaultValues.calendarId}`}
+                  className="text-blue-500 underline decoration-transparent transition duration-75 hover:text-blue-700 hover:decoration-blue-700"
+                >
+                  example
+                </Link>
+                )
               </FormLabel>
             </FormItem>
           )}
