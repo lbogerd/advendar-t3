@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, or } from "drizzle-orm";
 import { z } from "zod";
 import {
   addItemsSchema,
@@ -44,7 +44,12 @@ export const calendarRouter = createTRPCRouter({
       return await ctx.db.query.calendars.findFirst({
         where: and(
           eq(calendars.id, input.calendarId),
-          eq(calendars.shareable, true),
+          or(
+            eq(calendars.shareable, true),
+            ctx.session?.user.id
+              ? eq(calendars.createdById, ctx.session.user.id)
+              : undefined,
+          ),
         ),
         with: {
           items: true,

@@ -1,7 +1,4 @@
 [ ] make calendar shareable
-_[ ] generate shareable link | this will be a link that can be shared with anyone, and they can view the calendar without being logged in
-__[ ] make link public when shared
-__[ ] make link private when not shared | so that the user can always preview the calendar before sharing it
 _[ ] make public calendar ui | dont worry about locking the dates that are not available just yet
 __[ ] simple grid view on desktop
 __[ ] simple list view on mobile
