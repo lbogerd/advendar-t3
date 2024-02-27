@@ -1,15 +1,15 @@
+import { ChevronDown } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
-import { Button } from "../ui/button";
 import ActiveLink from "../ui/active-link";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
 
 export const DefaultLayout = ({
   pageTitle,
@@ -20,7 +20,7 @@ export const DefaultLayout = ({
 }) => {
   return (
     <>
-      <header className="sticky top-0 flex h-12 justify-between bg-yellow-400 px-1.5 sm:px-4 sm:py-2">
+      <header className="sticky top-0 z-50 flex h-12 justify-between bg-yellow-400 px-1.5 sm:px-4 sm:py-2">
         <div className="flex shrink-0 items-center sm:gap-2">
           <Link href={"/"}>
             <h1 className="text-2xl font-bold">📆 Advendar</h1>
