@@ -38,7 +38,7 @@
     "superjson": "2.2.1",
     "tailwind-merge": "2.2.1",
     "tailwindcss-animate": "1.0.7",
-    "trpc-panel": "1.3.4",
+    "trpc-panel": "*",
     "zod": "3.22.4",
     "zod-to-json-schema": "3.22.4"
   },

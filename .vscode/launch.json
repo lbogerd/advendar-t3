@@ -5,23 +5,23 @@
 			"name": "Next.js: debug server-side",
 			"type": "node-terminal",
 			"request": "launch",
-			"command": "npm run dev"
+			"command": "pd"
 		},
 		{
 			"name": "Next.js: debug client-side",
-			"type": "msedge",
+			"type": "chrome",
 			"request": "launch",
-			"url": "http://localhost:3000"
+			"url": "http://localhost:3000/internal"
 		},
 		{
 			"name": "Next.js: debug full stack",
 			"type": "node-terminal",
 			"request": "launch",
-			"command": "npm run dev",
+			"command": "pd",
 			"serverReadyAction": {
 				"pattern": "- Local:.+(https?://.+)",
 				"uriFormat": "%s",
-				"action": "debugWithEdge"
+				"action": "debugWithChrome"
 			}
 		}
 	]

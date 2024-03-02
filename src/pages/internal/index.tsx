@@ -3,42 +3,71 @@ import {
   type InferGetServerSidePropsType,
   type GetServerSideProps,
 } from "next";
-import util from "node:util";
-import {
-  type ZodTypeAny,
-  type ZodObject,
-  z,
-  type ZodType,
-  type ZodObjectDef,
-  type ZodTypeDef,
-} from "zod";
-import { zodToJsonSchema } from "zod-to-json-schema";
+import { type ZodTypeAny, type ZodType, type ZodTypeDef } from "zod";
+import zodToJsonSchema from "zod-to-json-schema";
+
+// const parseZodObject = (zodObject: ZodTypeAny) => {
+//   const shape = zodObject._def.shape();
+//   const result: Set<string | Set<string>> = new Set<string | Set<string>>();
+//   for (const key in shape) {
+//     const value = shape[key];
+//     if (value._def.typeName === "ZodObject") {
+//       // @ts-ignore
+//       result[key] = parseZodObject(value);
+//     } else {
+//       // @ts-ignore
+//       result[key] = value._def.typeName;
+//     }
+//   }
+//   return result;
+// };
 
 export const getServerSideProps = (async () => {
-  // const test = util.inspect(appRouter, { depth: 15 });
-  const allRouters = JSON.stringify(
-    Object.keys(appRouter).filter(
-      (key) => key !== "_def" && key !== "createCaller",
-    ),
-  );
+  const fullRouter = appRouter;
 
   const router1 = appRouter.calendar;
 
-  const time = new Date().toISOString().slice(11, 23);
-  const inputSchema = (
-    router1.get._def as typeof router1.get._def & {
-      inputs: ZodType<unknown, ZodTypeDef, unknown>[];
+  /* eslint-disable */
+  const allProcedures = fullRouter._def.procedures;
+  const jsonSchemas: any[] = [];
+
+  for (const pathName in allProcedures) {
+    const procedure: {
+      _def: {
+        inputs: ZodTypeAny[];
+      };
+      // @ts-ignore
+    } = allProcedures[pathName];
+
+    const input = procedure?._def?.inputs[0];
+
+    if (input) {
+      jsonSchemas.push(zodToJsonSchema(input));
     }
-  ).inputs[0]!;
 
-  const parsed = zodToJsonSchema(inputSchema);
+    // // @ts-ignore
+    // const inputSchema = input?._def?.shape();
 
-  router1.create._def._input_in;
+    // // loop through all the inputs for the schema and list them
+    // for (const inputKey in inputSchema) {
+    //   const input = inputSchema[inputKey];
+    //   const inputType = input._def.typeName;
 
-  // Pass data to the page via props
+    //   if (inputType === "ZodArray") {
+    //     // it's an array, find the type of the items in the array
+    //     const arrayItemType = input._def.type._def.typeName;
+
+    //     if (arrayItemType === "ZodObject") {
+    //       console.log("arrayItemType:", parseZodObject(input._def.type));
+    //     }
+    //     console.log("arrayItemType:", arrayItemType);
+    //   }
+  }
+  /* eslint-enable */
+
   return {
     props: {
-      test: parsed,
+      test: jsonSchemas,
     },
   };
 }) satisfies GetServerSideProps;
