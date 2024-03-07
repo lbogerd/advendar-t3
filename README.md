@@ -1,28 +1,10 @@
-# Create T3 App
+# Advendar
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Make online advent calendars for your friends and loved ones. A full-stack TypeScript NextJS application using (amongst others) tRPC, shadcn/ui, NextAuth, and Drizzle ORM.
 
-## What's next? How do I make an app with this?
+## The Idea
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Last year I wanted to create a simple online advent calendar for my partner. My search for exisiting solutions did not yield any usable results so I made a one-off version. I now want to enable people to easily build one themselves without having to have any programming or design skills. Advendar is my attempt at building such a product.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Current Usability
+The project in very early development. As I mostly use this to practice/play with new technologies there is currently nothing set in stone about it's future. 
