@@ -30,7 +30,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return getLayout(
     <SessionProvider session={session}>
-      <div className={cn("antialiased", inter.className)}>
+      <div
+        // for some reason, the font className is different
+        // between server and client, so we need to suppress
+        suppressHydrationWarning
+        className={cn("antialiased", inter.className)}
+      >
         <DefaultLayout>
           <Component {...pageProps} />
         </DefaultLayout>
