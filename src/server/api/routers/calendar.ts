@@ -84,7 +84,7 @@ export const calendarRouter = createTRPCRouter({
             calendarId: input.calendarId,
             contentTitle: item.contentTitle,
             contentDescription: item.contentDescription,
-            displayText: item.displayText,
+            displayText: "",
             createdById: ctx.session.user.id,
           })),
         )

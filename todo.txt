@@ -2,8 +2,8 @@
 _[x] make public calendar ui | dont worry about locking the dates that are not available just yet
 __[x] simple grid view on desktop
 __[x] simple list view on mobile
-[ ] disable display text | the display text will just be the day number for now as it makes the UI easier and it might well not be something people really want
-_[ ] disable user input
-__[ ] remove from zod schema | NOT the database, we will keep using it for static numbers
-__[ ] remove from api | make sure to force it to fill with number
-__[ ] remove from ui | the creation part, not the display part
+[x] disable display text | the display text will just be the day number for now as it makes the UI easier and it might well not be something people really want
+_[x] disable user input
+__[x] remove from zod schema | NOT the database, we will keep using it for static numbers
+__[x] remove from api | make sure to force it to fill with number
+__[x] remove from ui | the creation part, not the display part

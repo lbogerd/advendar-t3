@@ -106,7 +106,7 @@ function ItemCard({
   canBeOpened: boolean;
   initialState: CardOpenState;
 }) {
-  const [currentOpenState, setCurrentOpenState] = useState(initialState);
+  const [currentOpenState] = useState(initialState);
 
   return (
     <div

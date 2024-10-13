@@ -10,7 +10,6 @@ export const createCalendarSchema = z.object({
 export const itemSchema = z.object({
   contentTitle: z.string().min(1),
   contentDescription: z.string().min(1),
-  displayText: z.string().min(1),
 });
 
 export const addItemsSchema = z.object({

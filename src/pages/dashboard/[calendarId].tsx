@@ -141,7 +141,6 @@ function CalendarItemForm({ calendarId }: { calendarId: string }) {
   const form = useForm<z.infer<typeof itemSchema>>({
     resolver: zodResolver(itemSchema),
     defaultValues: {
-      displayText: "",
       contentTitle: "",
       contentDescription: "",
     },
@@ -172,22 +171,6 @@ function CalendarItemForm({ calendarId }: { calendarId: string }) {
         className="mx-auto flex w-full max-w-lg flex-col gap-4"
       >
         <h3 className="text-lg font-medium">Add new calendar item</h3>
-        <FormField
-          control={form.control}
-          name="displayText"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Display text</FormLabel>
-              <FormControl>
-                <Input placeholder="Display text" {...field} />
-              </FormControl>
-              <FormDescription>
-                Text that will be shown on an unopened calendar item.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="contentTitle"
