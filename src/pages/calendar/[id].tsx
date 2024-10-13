@@ -70,7 +70,10 @@ export default function CalendarPage(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   const { id } = props;
-  const calendarQuery = api.calendar.getPublic.useQuery({ calendarId: id });
+  const calendarQuery = api.calendar.getPublic.useQuery(
+    { calendarId: id },
+    { retry: false },
+  );
 
   if (calendarQuery.error) {
     return <div>Error: {calendarQuery.error.message}</div>;

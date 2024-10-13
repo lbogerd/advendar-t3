@@ -7,6 +7,7 @@ import {
 } from "~/lib/validation";
 import { calendarItems, calendars } from "~/server/db/schema";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
 
 export const calendarRouter = createTRPCRouter({
   create: protectedProcedure
@@ -41,7 +42,7 @@ export const calendarRouter = createTRPCRouter({
   getPublic: publicProcedure
     .input(z.object({ calendarId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      return await ctx.db.query.calendars.findFirst({
+      const calendar = await ctx.db.query.calendars.findFirst({
         where: and(
           eq(calendars.id, input.calendarId),
           or(
@@ -55,6 +56,10 @@ export const calendarRouter = createTRPCRouter({
           items: true,
         },
       });
+
+      if (!calendar) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return calendar;
     }),
 
   get: protectedProcedure
